@@ -9,7 +9,23 @@ Expects:
     weights/best_weights_only.pth             ← FR-UNet segmentation weights
     models.py                                 ← in the same directory
 """
+import os
+from huggingface_hub import hf_hub_download
 
+os.makedirs("weights", exist_ok=True)
+
+clf_path = "weights/convnext_ordinal_checkpoint.pth"
+seg_path = "weights/best_weights_only.pth"
+
+if not os.path.exists(clf_path):
+    hf_hub_download(repo_id="AnshisUWU/dr-weights",
+                    filename="convnext_ordinal_checkpoint.pth",
+                    local_dir="weights")
+
+if not os.path.exists(seg_path):
+    hf_hub_download(repo_id="AnshisUWU/dr-weights",
+                    filename="best_weights_only.pth",
+                    local_dir="weights")
 import io
 import streamlit as st
 import numpy as np
